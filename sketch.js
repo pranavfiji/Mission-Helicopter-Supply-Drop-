@@ -4,6 +4,7 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
+var leftPillar,longPillar,rightPillar
 
 function preload()
 {
@@ -27,11 +28,14 @@ function setup() {
 	groundSprite=createSprite(width/2, height-35, width,10);
 	groundSprite.shapeColor=color(255)
 
+	longPillar=createSprite(400,660,200,20);
+	rightPillar=createSprite(300,620,20,100);
+	leftPillar=createSprite(500,620,20,100);
 
 	engine = Engine.create();
 	world = engine.world;
 
-	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:3, isStatic:true});
+	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0, isStatic:false});
 	World.add(world, packageBody);
 	
 
@@ -39,6 +43,7 @@ function setup() {
 	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
  	World.add(world, ground);
 
+	 World.add(world,longPillar);
 
 	Engine.run(engine);
   
@@ -50,13 +55,14 @@ function draw() {
   background(0);
   packageSprite.x= packageBody.position.x 
   packageSprite.y= packageBody.position.y 
+  keyPressed();
   drawSprites();
  
 }
 
 function keyPressed() {
  if (keyCode === DOWN_ARROW) {
-	packageSprite.velocityY=8;
+	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0, isStatic:false});
 	
   
 }
